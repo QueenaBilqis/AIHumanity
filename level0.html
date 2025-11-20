@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Level 0 – Mari Berpikir Seperti Programmer!</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1a0033, #0d001a);
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    .neon-text {
+      text-shadow: 0 0 10px #bb00ff, 0 0 20px #bb00ff, 0 0 30px #bb00ff;
+    }
+
+    .glow-button {
+      box-shadow: 0 0 15px rgba(187, 0, 255, 0.5);
+      transition: all 0.3s ease;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .glow-button:hover {
+      box-shadow: 0 0 25px rgba(187, 0, 255, 0.8), 0 0 40px rgba(187, 0, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .card-glow {
+      background: rgba(20, 0, 50, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.2);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 0 20px rgba(187, 0, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .card-glow:hover {
+      box-shadow: 0 0 30px rgba(187, 0, 255, 0.5), 0 0 40px rgba(187, 0, 255, 0.3);
+      transform: translateY(-5px);
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .week-tab {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: rgba(30, 0, 70, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.2);
+      border-radius: 10px 10px 0 0;
+      margin-right: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+    }
+
+    .week-tab.active {
+      background: linear-gradient(135deg, #6c00e6, #9a00ff);
+      box-shadow: 0 0 15px rgba(187, 0, 255, 0.5);
+    }
+
+    .week-tab:hover:not(.active) {
+      background: rgba(30, 0, 70, 0.7);
+      transform: translateY(-2px);
+    }
+
+    .week-content {
+      display: none;
+      padding: 2rem;
+      background: rgba(20, 0, 50, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.2);
+      border-top: none;
+      border-radius: 0 0 15px 15px;
+      margin-top: -1px;
+    }
+
+    .week-content.active {
+      display: block;
+    }
+
+    .challenge {
+      background: rgba(30, 0, 70, 0.5);
+      border-left: 4px solid #bb00ff;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0 15px 15px 0;
+    }
+
+    .highlight {
+      color: #bb00ff;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .week-tab {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+      .section-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body class="font-sans">
+  <div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold neon-text">📘 Level 0 – Mari Berpikir Seperti Programmer!</h1>
+      <p class="text-lg mt-2">Usia: 8–12 tahun | Durasi: 4 Minggu | Tools: HP/laptop + internet</p>
+      <p class="text-md mt-1">Platform: <a href="https://scratch.mit.edu" target="_blank" class="text-purple-400 underline">scratch.mit.edu</a></p>
+    </div>
+
+    <!-- Welcome -->
+    <div class="card-glow text-center p-6 mb-8">
+      <h2 class="section-title">🌟 Selamat datang, Calon Coder!</h2>
+      <p>Kamu nggak perlu jadi jenius. Cukup bawa rasa ingin tahu, berani coba, dan senyum saat salah!</p>
+      <p class="mt-2">Siap bikin game, cerita, dan robot virtual? Ayo mulai!</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex flex-wrap mb-0">
+      <div class="week-tab active" data-week="1">🗓️ Minggu 1</div>
+      <div class="week-tab" data-week="2">🗓️ Minggu 2</div>
+      <div class="week-tab" data-week="3">🗓️ Minggu 3</div>
+      <div class="week-tab" data-week="4">🗓️ Minggu 4</div>
+    </div>
+
+    <!-- Minggu 1 -->
+    <div id="week1" class="week-content active">
+      <h2 class="section-title">Halo, Dunia Coding!</h2>
+      <p>Coding itu seperti <span class="highlight">memberi resep ke robot</span>. Komputer butuh perintah <span class="highlight">jelas dan berurutan</span>.</p>
+      <p>Kamu akan kenalan dengan <span class="highlight">Scratch</span> — dunia ajaib tempat karakter bisa bergerak, bicara, dan main!</p>
+
+      <h3 class="mt-4">🧩 Langkah-Langkah:</h3>
+      <ol class="list-decimal list-inside space-y-1 ml-4">
+        <li>Buka browser → ketik <strong>scratch.mit.edu</strong></li>
+        <li>Klik tombol hijau <strong>“Create”</strong></li>
+        <li>Seret blok ini ke area tengah:</li>
+      </ol>
+      <pre class="bg-black/30 p-3 rounded mt-2 text-sm overflow-x-auto">
+when [green flag] clicked
+move 10 steps
+say [Halo, aku si Kucing Coder!] for 2 seconds
+      </pre>
+      <p class="mt-2">Klik bendera hijau di atas panggung! ✨</p>
+
+      <div class="challenge">
+        <strong>🎯 Tantangan:</strong> Buat kucingmu berjalan ke kanan, lalu bilang:  
+        <strong>“Aku siap belajar coding!”</strong>
+      </div>
+    </div>
+
+    <!-- Minggu 2 -->
+    <div id="week2" class="week-content">
+      <h2 class="section-title">Ulangi, Tapi Pintar!</h2>
+      <p>Daripada menulis perintah berulang, pakai <span class="highlight">“ulangi”</span>! Ini disebut <span class="highlight">loop</span>.</p>
+
+      <h3 class="mt-4">🧩 Coba Sekarang:</h3>
+      <pre class="bg-black/30 p-3 rounded mt-2 text-sm overflow-x-auto">
+when [green flag] clicked
+repeat (36)
+  move 10 steps
+  turn right 10 degrees
+end
+      </pre>
+
+      <div class="challenge">
+        <strong>🎯 Tantangan:</strong> Buat karaktermu <span class="highlight">berputar 360 derajat</span>, lalu bilang:  
+        <strong>“Wussh! Aku bisa loop!”</strong>
+      </div>
+    </div>
+
+    <!-- Minggu 3 -->
+    <div id="week3" class="week-content">
+      <h2 class="section-title">Ayo Main Bareng!</h2>
+      <p>Karakter bisa <span class="highlight">bereaksi saat diklik!</span> Ini namanya <span class="highlight">event</span>.</p>
+
+      <h3 class="mt-4">🧩 Coba Sekarang:</h3>
+      <pre class="bg-black/30 p-3 rounded mt-2 text-sm overflow-x-auto">
+when this sprite clicked
+change color effect by 25
+play sound [meow v]
+      </pre>
+
+      <div class="challenge">
+        <strong>🎯 Tantangan:</strong> Tambahkan <span class="highlight">dua karakter</span> (kucing & anjing). Saat kucing diklik, anjing bergerak mendekat dan bilang:  
+        <strong>“Ayo main bareng!”</strong>
+      </div>
+    </div>
+
+    <!-- Minggu 4 -->
+    <div id="week4" class="week-content">
+      <h2 class="section-title">Proyek Akhir – Game “Tangkap Ikan!”</h2>
+      <p>Buat game di mana <span class="highlight">kucing harus menangkap ikan</span> yang lari-lari!</p>
+
+      <ol class="list-decimal list-inside space-y-2 ml-4 mt-3">
+        <li>Ganti latar belakang → pilih laut/sungai</li>
+        <li>Tambahkan ikan (klik ikon kucing kecil → cari “fish”)</li>
+        <li>Untuk ikan, pasang blok:
+          <pre class="bg-black/30 p-2 rounded mt-1 text-sm">
+when [green flag] clicked
+forever
+  go to random position
+  wait 1 seconds
+end
+          </pre>
+        </li>
+        <li>Buat skor: klik “Variables” → “Make a Variable” → nama: <strong>Skor</strong></li>
+        <li>Untuk ikan, tambahkan:
+          <pre class="bg-black/30 p-2 rounded mt-1 text-sm">
+when this sprite clicked
+change [Skor v] by 1
+          </pre>
+        </li>
+      </ol>
+
+      <div class="card-glow p-4 mt-4 text-center">
+        <h3 class="text-xl font-semibold">🏆 Selamat!</h3>
+        <p>Kamu baru saja membuat <span class="highlight">game pertamamu</span>!</p>
+        <p class="mt-2">✅ Jangan lupa klik <strong>“File → Download”</strong> untuk menyimpan!</p>
+      </div>
+    </div>
+
+    <!-- Tombol utama -->
+    <div class="text-center mt-8">
+      <button id="btn-start" class="glow-button">
+        <i class="fas fa-play"></i> Mulai dari Scratch Sekarang!
+      </button>
+    </div>
+
+    <!-- Penutup -->
+    <div class="card-glow p-6 mt-8 text-center">
+      <h2 class="section-title">🌈 Penutup</h2>
+      <p><em>“Kamu bukan cuma main game — kamu belajar menciptakan dunia!”</em></p>
+      <p class="mt-2">Setiap klik, setiap blok, setiap kesalahan… adalah langkah kecil menuju masa depan yang luar biasa.</p>
+      <p class="mt-4 font-semibold">Teruslah penasaran. Teruslah mencoba. Dunia butuh idemu!</p>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.week-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const week = tab.dataset.week;
+        document.querySelectorAll('.week-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.week-content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(`week${week}`).classList.add('active');
+      });
+    });
+
+    // Start button
+    document.getElementById('btn-start').addEventListener('click', () => {
+      window.open('https://scratch.mit.edu', '_blank');
+    });
+  </script>
+</body>
+</html>
