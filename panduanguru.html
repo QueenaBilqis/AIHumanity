@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panduan untuk Guru – Level 0</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1a0033, #0d001a);
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+    .neon-text {
+      text-shadow: 0 0 10px #bb00ff, 0 0 20px #bb00ff, 0 0 30px #bb00ff;
+    }
+    .card-glow {
+      background: rgba(20, 0, 50, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.2);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 0 20px rgba(187, 0, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+    .card-glow:hover {
+      box-shadow: 0 0 30px rgba(187, 0, 255, 0.5), 0 0 40px rgba(187, 0, 255, 0.3);
+      transform: translateY(-5px);
+    }
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .glow-button {
+      box-shadow: 0 0 15px rgba(187, 0, 255, 0.5);
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #6c00e6, #9a00ff);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .glow-button:hover {
+      box-shadow: 0 0 25px rgba(187, 0, 255, 0.8), 0 0 40px rgba(187, 0, 255, 0.6);
+      transform: translateY(-2px);
+    }
+    .week-tab {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: rgba(30, 0, 70, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.2);
+      border-radius: 10px 10px 0 0;
+      margin-right: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+    }
+    .week-tab.active {
+      background: linear-gradient(135deg, #6c00e6, #9a00ff);
+      box-shadow: 0 0 15px rgba(187, 0, 255, 0.5);
+    }
+    .week-tab:hover:not(.active) {
+      background: rgba(30, 0, 70, 0.7);
+      transform: translateY(-2px);
+    }
+    .week-content {
+      display: none;
+      padding: 2rem;
+      background: rgba(20, 0, 50, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.2);
+      border-top: none;
+      border-radius: 0 0 15px 15px;
+      margin-top: -1px;
+    }
+    .week-content.active {
+      display: block;
+    }
+    .highlight {
+      color: #bb00ff;
+      font-weight: 600;
+    }
+    .tip-box {
+      background: rgba(30, 0, 70, 0.5);
+      border-left: 4px solid #4ade80;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      border-radius: 0 15px 15px 0;
+    }
+    .challenge-box {
+      background: rgba(30, 0, 70, 0.5);
+      border-left: 4px solid #f59e0b;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      border-radius: 0 15px 15px 0;
+    }
+    @media (max-width: 768px) {
+      .week-tab {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+      .section-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body class="font-sans">
+  <div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold neon-text">📘 Panduan untuk Guru</h1>
+      <p class="text-xl text-purple-300 mt-2">Level 0 – Mari Berpikir Seperti Programmer!</p>
+      <p class="mt-2">Durasi: 4 Minggu | Platform: <a href="https://scratch.mit.edu" target="_blank" class="text-purple-400 underline">scratch.mit.edu</a></p>
+      <p class="text-gray-300">Target: Siswa usia 8–12 tahun (Kelas 3–6 SD)</p>
+    </div>
+
+    <!-- Tujuan Umum -->
+    <div class="card-glow mb-8">
+      <h2 class="section-title">🎯 Tujuan Umum Program</h2>
+      <ul class="list-disc list-inside space-y-2 ml-4">
+        <li>Mengenalkan dasar-dasar <span class="highlight">berpikir komputasional</span> melalui visual programming.</li>
+        <li>Membangun <span class="highlight">rasa percaya diri</span> dalam mengeksplorasi teknologi secara kreatif.</li>
+        <li>Melatih logika: <span class="highlight">urutan</span>, <span class="highlight">pengulangan (loop)</span>, dan <span class="highlight">event handling</span>.</li>
+        <li>Mendorong siswa untuk <span class="highlight">mencoba, gagal, dan belajar</span> — bukan sekadar “benar/salah”.</li>
+      </ul>
+    </div>
+
+    <!-- Persiapan -->
+    <div class="grid md:grid-cols-2 gap-6 mb-8">
+      <div class="card-glow">
+        <h3 class="font-bold text-lg text-purple-300 mb-2">🛠️ Persiapan Teknis</h3>
+        <ul class="list-disc list-inside space-y-1 ml-4">
+          <li>Pastikan akses ke <strong>scratch.mit.edu</strong></li>
+          <li>Akun kelas (opsional)</li>
+          <li>Siapkan proyek contoh</li>
+        </ul>
+      </div>
+      <div class="card-glow">
+        <h3 class="font-bold text-lg text-purple-300 mb-2">🧠 Mindset Mengajar</h3>
+        <ul class="list-disc list-inside space-y-1 ml-4">
+          <li>Kesalahan = bagian dari belajar</li>
+          <li>Rayakan eksperimen, bukan hanya hasil</li>
+          <li>Anda = fasilitator, bukan ahli teknis</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Tabs Mingguan -->
+    <div class="flex flex-wrap mb-0">
+      <div class="week-tab active" data-week="1">Minggu 1</div>
+      <div class="week-tab" data-week="2">Minggu 2</div>
+      <div class="week-tab" data-week="3">Minggu 3</div>
+      <div class="week-tab" data-week="4">Minggu 4</div>
+    </div>
+
+    <!-- Minggu 1 -->
+    <div id="week1" class="week-content active">
+      <h2 class="section-title">Pengenalan Scratch & Urutan Perintah</h2>
+      <p><strong>Fokus:</strong> Antarmuka Scratch + logika berurutan.</p>
+      <div class="tip-box">
+        <strong>💡 Tips Mengajar:</strong><br>
+        Gunakan analogi “resep masakan” atau “instruksi ke robot”.<br>
+        Minta siswa <span class="highlight">memprediksi</span> apa yang terjadi sebelum klik bendera hijau.
+      </div>
+      <div class="challenge-box">
+        <strong>🎯 Tantangan:</strong><br>
+        Ajak mereka ubah teks atau jarak langkah — amati efeknya!
+      </div>
+    </div>
+
+    <!-- Minggu 2 -->
+    <div id="week2" class="week-content">
+      <h2 class="section-title">Loop (Pengulangan)</h2>
+      <p><strong>Fokus:</strong> Efisiensi dengan <code class="bg-gray-800 px-1 rounded">repeat</code>.</p>
+      <div class="tip-box">
+        <strong>💡 Tips Mengajar:</strong><br>
+        Bandingkan: “Menulis ‘move 10 steps’ 36 kali vs pakai <code>repeat</code>”.<br>
+        Tanyakan: <em>“Kalau repeat 4, bentuknya jadi apa?”</em> → jawaban: <span class="highlight">persegi</span>!
+      </div>
+      <div class="challenge-box">
+        <strong>🎯 Tantangan:</strong><br>
+        Coba buat bintang atau pola lain dengan kombinasi <code>move</code> dan <code>turn</code>.
+      </div>
+    </div>
+
+    <!-- Minggu 3 -->
+    <div id="week3" class="week-content">
+      <h2 class="section-title">Event & Interaksi Antar Karakter</h2>
+      <p><strong>Fokus:</strong> <code>when this sprite clicked</code> + komunikasi objek.</p>
+      <div class="tip-box">
+        <strong>💡 Tips Mengajar:</strong><br>
+        Jelaskan: “Karakter bisa <span class="highlight">mendengar</span> saat diklik — seperti tombol di game!”<br>
+        Pastikan siswa menaruh blok di karakter yang <span class="highlight">tepat</span>!
+      </div>
+      <div class="challenge-box">
+        <strong>🎯 Tantangan:</strong><br>
+        Coba buat anjing berlari mendekat dengan <code>glide</code> atau <code>move</code>.
+      </div>
+    </div>
+
+    <!-- Minggu 4 -->
+    <div id="week4" class="week-content">
+      <h2 class="section-title">Proyek Akhir – Game “Tangkap Ikan!”</h2>
+      <p><strong>Fokus:</strong> Integrasi konsep + variabel (skor).</p>
+      <div class="tip-box">
+        <strong>💡 Tips Mengajar:</strong><br>
+        - Bimbing langkah demi langkah.<br>
+        - Blok <code>forever</code> untuk ikan, <code>when this sprite clicked</code> untuk skor.<br>
+        - Dorong kreativitas: ganti suara, efek, latar!
+      </div>
+      <div class="challenge-box">
+        <strong>🎯 Tantangan:</strong><br>
+        Akhiri dengan <span class="highlight">sharing session</span>: setiap siswa menunjukkan game-nya!
+      </div>
+    </div>
+
+    <!-- Asesmen -->
+    <div class="card-glow mt-8">
+      <h2 class="section-title">📌 Asesmen Formatif</h2>
+      <p>Penilaian <strong>bukan berdasarkan benar/salah</strong>, tapi:</p>
+      <ul class="list-disc list-inside space-y-2 ml-4 mt-2">
+        <li>Partisipasi aktif dalam eksperimen</li>
+        <li>Kemampuan memprediksi efek dari kode</li>
+        <li>Kreativitas dalam memodifikasi proyek</li>
+        <li>Ketekunan saat menghadapi bug/error</li>
+      </ul>
+    </div>
+
+    <!-- Penutup -->
+    <div class="card-glow p-6 mt-8 text-center">
+      <h2 class="section-title">🌟 Penutup untuk Guru</h2>
+      <p class="text-lg">
+        Anda bukan hanya mengajarkan coding —<br>
+        <span class="highlight">Anda membuka pintu bagi siswa untuk menjadi pencipta, bukan hanya konsumen teknologi.</span>
+      </p>
+      <p class="mt-4">
+        Setiap klik, setiap tawa, setiap “Aha!” adalah benih masa depan yang cemerlang.
+      </p>
+      <p class="mt-4 font-semibold text-purple-300">
+        Terima kasih, Guru Hebat, atas dedikasimu!<br>
+        Dunia butuh lebih banyak seperti Anda.
+      </p>
+    </div>
+
+    <!-- Button: Kembali ke Beranda -->
+    <div class="text-center mt-8">
+      <button id="btn-home" class="glow-button">
+        <i class="fas fa-home"></i> Kembali ke Beranda
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.week-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const week = tab.dataset.week;
+        document.querySelectorAll('.week-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.week-content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(`week${week}`).classList.add('active');
+      });
+    });
+
+    // Back to home
+    document.getElementById('btn-home')?.addEventListener('click', () => {
+      window.location.href = 'index.html'; // atau ganti ke halaman utama Anda
+    });
+  </script>
+</body>
+</html>
