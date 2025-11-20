@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI for Humanity</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1a0033, #0d001a);
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+    .neon-text {
+      text-shadow: 0 0 10px #bb00ff, 0 0 20px #bb00ff, 0 0 30px #bb00ff;
+    }
+    .glow-button {
+      box-shadow: 0 0 15px rgba(187, 0, 255, 0.5);
+      transition: all 0.3s ease;
+    }
+    .glow-button:hover {
+      box-shadow: 0 0 25px rgba(187, 0, 255, 0.8), 0 0 40px rgba(187, 0, 255, 0.6);
+      transform: translateY(-2px);
+    }
+    .card-glow {
+      box-shadow: 0 0 20px rgba(187, 0, 255, 0.3);
+      border: 1px solid rgba(187, 0, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+    .card-glow:hover {
+      box-shadow: 0 0 30px rgba(187, 0, 255, 0.5), 0 0 40px rgba(187, 0, 255, 0.3);
+      transform: translateY(-5px);
+    }
+    .chat-bubble-user {
+      background: linear-gradient(135deg, #6c00e6, #9a00ff);
+      border-radius: 20px 20px 0 20px;
+    }
+    .chat-bubble-ai {
+      background: linear-gradient(135deg, #2a0052, #4a008f);
+      border-radius: 20px 20px 20px 0;
+    }
+    .nav-item {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .nav-item::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: #bb00ff;
+      transition: width 0.3s ease;
+    }
+    .nav-item:hover::after {
+      width: 100%;
+    }
+    .stat-card {
+      background: rgba(20, 0, 50, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      background: rgba(30, 0, 70, 0.7);
+      transform: scale(1.05);
+    }
+    .floating {
+      animation: floating 3s ease-in-out infinite;
+    }
+    @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    .pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #1a0033, #0d001a);
+    }
+    .purple-gradient {
+      background: linear-gradient(135deg, #4a008f, #6c00e6);
+    }
+    .hover-glow {
+      transition: all 0.3s ease;
+    }
+    .hover-glow:hover {
+      text-shadow: 0 0 10px #bb00ff;
+      transform: scale(1.05);
+    }
+    .chat-input {
+      background: rgba(20, 0, 50, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+    .chat-input:focus {
+      outline: none;
+      border-color: #bb00ff;
+      box-shadow: 0 0 15px rgba(187, 0, 255, 0.5);
+    }
+    .typing-indicator {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
+    .typing-dot {
+      width: 8px;
+      height: 8px;
+      background: #bb00ff;
+      border-radius: 50%;
+      margin: 0 3px;
+      animation: typing 1.5s infinite ease-in-out;
+    }
+    .typing-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .typing-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    @keyframes typing {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+    }
+    .hero-section {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, #1a0033, #0d001a);
+      z-index: -1;
+    }
+    .hero-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .particle {
+      position: absolute;
+      background: #bb00ff;
+      border-radius: 50%;
+      opacity: 0.5;
+    }
+    .feature-card {
+      background: rgba(20, 0, 50, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      background: rgba(30, 0, 70, 0.7);
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(187, 0, 255, 0.3);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #6c00e6, #9a00ff);
+      border: none;
+      box-shadow: 0 0 15px rgba(187, 0, 255, 0.5);
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #9a00ff, #bb00ff);
+      box-shadow: 0 0 25px rgba(187, 0, 255, 0.8);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: linear-gradient(135deg, #2a0052, #4a008f);
+      border: none;
+      box-shadow: 0 0 15px rgba(187, 0, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+    .btn-secondary:hover {
+      background: linear-gradient(135deg, #4a008f, #6c00e6);
+      box-shadow: 0 0 25px rgba(187, 0, 255, 0.6);
+      transform: translateY(-2px);
+    }
+    .contact-form {
+      background: rgba(20, 0, 50, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.2);
+      border-radius: 15px;
+      padding: 2rem;
+    }
+    .form-input {
+      background: rgba(30, 0, 70, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.3);
+      color: white;
+      transition: all 0.3s ease;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: #bb00ff;
+      box-shadow: 0 0 15px rgba(187, 0, 255, 0.5);
+    }
+    .form-label {
+      color: #bb00ff;
+    }
+    .resource-card {
+      background: rgba(20, 0, 50, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+    .resource-card:hover {
+      background: rgba(30, 0, 70, 0.7);
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(187, 0, 255, 0.3);
+    }
+    .resource-icon {
+      font-size: 2rem;
+      color: #bb00ff;
+      transition: all 0.3s ease;
+    }
+    .resource-icon:hover {
+      transform: scale(1.2);
+      color: #ff00ff;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .stat-number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      color: #bb00ff;
+      text-shadow: 0 0 10px #bb00ff;
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      color: #ffffff;
+    }
+    .chat-container {
+      background: rgba(20, 0, 50, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.2);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(187, 0, 255, 0.3);
+    }
+    .chat-header {
+      background: linear-gradient(135deg, #4a008f, #6c00e6);
+      border-radius: 15px 15px 0 0;
+      padding: 1rem;
+    }
+    .chat-messages {
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+    .chat-form {
+      padding: 1rem;
+      border-top: 1px solid rgba(187, 0, 255, 0.2);
+    }
+    .chat-send-btn {
+      background: linear-gradient(135deg, #6c00e6, #9a00ff);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .chat-send-btn:hover {
+      background: linear-gradient(135deg, #9a00ff, #bb00ff);
+      transform: scale(1.1);
+    }
+    .page-content {
+      background: rgba(20, 0, 50, 0.5);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .page-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      color: #bb00ff;
+      text-shadow: 0 0 10px #bb00ff;
+      margin-bottom: 1rem;
+    }
+    .page-subtitle {
+      font-size: 1.2rem;
+      color: #ffffff;
+      margin-bottom: 2rem;
+    }
+    .section-divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #bb00ff, transparent);
+      margin: 2rem 0;
+    }
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cta-button {
+      background: linear-gradient(135deg, #6c00e6, #9a00ff);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(187, 0, 255, 0.5);
+    }
+    .cta-button:hover {
+      background: linear-gradient(135deg, #9a00ff, #bb00ff);
+      box-shadow: 0 0 25px rgba(187, 0, 255, 0.8);
+      transform: translateY(-2px);
+    }
+    .highlight {
+      color: #bb00ff;
+      font-weight: 600;
+    }
+    .icon-glow {
+      color: #bb00ff;
+      text-shadow: 0 0 10px #bb00ff;
+      transition: all 0.3s ease;
+    }
+    .icon-glow:hover {
+      color: #ff00ff;
+      text-shadow: 0 0 20px #ff00ff;
+      transform: scale(1.1);
+    }
+    .table-container {
+      background: rgba(20, 0, 50, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.2);
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    .table-header {
+      background: rgba(30, 0, 70, 0.5);
+      border-bottom: 1px solid rgba(187, 0, 255, 0.2);
+    }
+    .table-row {
+      transition: all 0.3s ease;
+    }
+    .table-row:hover {
+      background: rgba(30, 0, 70, 0.7);
+    }
+    .table-cell {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(187, 0, 255, 0.1);
+    }
+    .table-cell:last-child {
+      border-right: none;
+    }
+    .quote {
+      border-left: 4px solid #bb00ff;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      background: rgba(30, 0, 70, 0.3);
+      border-radius: 0 15px 15px 0;
+    }
+    .quote-text {
+      font-style: italic;
+      color: #ffffff;
+    }
+    .quote-author {
+      font-weight: 600;
+      color: #bb00ff;
+      margin-top: 0.5rem;
+    }
+    .testimonials {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: 1rem 0;
+      scrollbar-width: thin;
+      scrollbar-color: #bb00ff #1a0033;
+    }
+    .testimonial-card {
+      min-width: 300px;
+      background: rgba(20, 0, 50, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.2);
+      border-radius: 15px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    .testimonial-card:hover {
+      background: rgba(30, 0, 70, 0.7);
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(187, 0, 255, 0.3);
+    }
+    .testimonial-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #bb00ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .testimonial-name {
+      font-weight: 600;
+      color: #bb00ff;
+    }
+    .testimonial-text {
+      font-style: italic;
+      color: #ffffff;
+    }
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .social-link {
+      background: rgba(30, 0, 70, 0.5);
+      border: 1px solid rgba(187, 0, 255, 0.2);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .social-link:hover {
+      background: #bb00ff;
+      transform: scale(1.1);
+    }
+    .social-icon {
+      color: #ffffff;
+      font-size: 1.2rem;
+    }
+    .footer {
+      background: rgba(10, 0, 25, 0.8);
+      border-top: 1px solid rgba(187, 0, 255, 0.2);
+      padding: 2rem 0;
+      margin-top: 2rem;
+    }
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+    }
+    .footer-title {
+      font-family: 'Orbitron', sans-serif;
+      color: #bb00ff;
+      margin-bottom: 1rem;
+    }
+    .footer-link {
+      color: #ffffff;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .footer-link:hover {
+      color: #bb00ff;
+      text-decoration: underline;
+    }
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      color: #ffffff;
+      font-size: 0.9rem;
+    }
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      .nav-item {
+        margin: 0.5rem 0;
+      }
+      .hero-section {
+        padding: 2rem 1rem;
+      }
+      .page-title {
+        font-size: 2rem;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+      .feature-card {
+        min-width: 100%;
+      }
+      .button-group {
+        flex-direction: column;
+      }
+      .table-container {
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body class="font-sans">
+  <nav class="bg-black/50 backdrop-blur-md sticky top-0 z-50">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between h-16">
+        <div class="flex-shrink-0 flex items-center">
+          <i class="fas fa-robot text-purple-400 mr-2 text-xl"></i>
+          <span class="text-xl font-bold text-white">AI for Humanity</span>
+        </div>
+        <div class="hidden md:flex items-center space-x-4">
+          <button id="nav-home" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-purple-600 nav-item">Beranda</button>
+          <button id="nav-problems" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-purple-600 nav-item">Solusi AI</button>
+          <button id="nav-comparison" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-purple-600 nav-item">Tiongkok vs Indonesia</button>
+          <button id="nav-learn" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-purple-600 nav-item">Belajar Gratis</button>
+          <button id="nav-resources" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-purple-600 nav-item">Sumber Belajar</button>
+          <button id="nav-research" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-purple-600 nav-item">Riset</button>
+          <button id="nav-cases" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-purple-600 nav-item">Studi Kasus</button>
+          <button id="nav-contribute" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-purple-600 nav-item">Berkontribusi</button>
+          <button id="nav-contact" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-purple-600 nav-item">Kontak</button>
+        </div>
+        <div class="md:hidden flex items-center">
+          <button id="menu-toggle" class="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-purple-600 focus:outline-none">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-black/70 backdrop-blur-md border-t border-purple-600 px-4 pt-2 pb-4 space-y-1">
+      <button class="block px-3 py-2 rounded-md text-base font-medium w-full text-left text-white hover:bg-purple-600 nav-mobile" data-page="home">Beranda</button>
+      <button class="block px-3 py-2 rounded-md text-base font-medium w-full text-left text-white hover:bg-purple-600 nav-mobile" data-page="problems">Solusi AI</button>
+      <button class="block px-3 py-2 rounded-md text-base font-medium w-full text-left text-white hover:bg-purple-600 nav-mobile" data-page="comparison">Tiongkok vs Indonesia</button>
+      <button class="block px-3 py-2 rounded-md text-base font-medium w-full text-left text-white hover:bg-purple-600 nav-mobile" data-page="learn">Belajar Gratis</button>
+      <button class="block px-3 py-2 rounded-md text-base font-medium w-full text-left text-white hover:bg-purple-600 nav-mobile" data-page="resources">Sumber Belajar</button>
+      <button class="block px-3 py-2 rounded-md text-base font-medium w-full text-left text-white hover:bg-purple-600 nav-mobile" data-page="research">Riset</button>
+      <button class="block px-3 py-2 rounded-md text-base font-medium w-full text-left text-white hover:bg-purple-600 nav-mobile" data-page="cases">Studi Kasus</button>
+      <button class="block px-3 py-2 rounded-md text-base font-medium w-full text-left text-white hover:bg-purple-600 nav-mobile" data-page="contribute">Berkontribusi</button>
+      <button class="block px-3 py-2 rounded-md text-base font-medium w-full text-left text-white hover:bg-purple-600 nav-mobile" data-page="contact">Kontak</button>
+    </div>
+  </nav>
+  <main id="content">
+    <div id="page-home" class="min-h-screen gradient-bg">
+      <div class="hero-section">
+        <div class="hero-background"></div>
+        <div class="hero-particles" id="particles"></div>
+        <div class="container mx-auto px-4 py-16 md:py-24 relative z-10">
+          <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 section-title neon-text">AI for Humanity</h1>
+            <p class="text-xl md:text-2xl text-purple-200 mb-8">Mengatasi Masalah Manusia, Menjembatani Kesenjangan Teknologi</p>
+            <p class="text-lg text-gray-300 max-w-3xl mx-auto mb-12">
+              Dari robot pengantar makanan di Shanghai hingga anak di desa yang baru mengenal komputer—kita percaya 
+              <span class="font-semibold highlight"> setiap orang berhak belajar dan memanfaatkan kecerdasan buatan untuk kebaikan bersama</span>.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <button id="btn-learn" class="btn-primary glow-button py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2 hover-glow">
+                <i class="fas fa-book icon-glow"></i> Mulai Belajar Sekarang
+              </button>
+              <button id="btn-cases" class="btn-secondary glow-button py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2 hover-glow">
+                <i class="fas fa-globe icon-glow"></i> Jelajahi Studi Kasus Global
+              </button>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-3 gap-8 mt-16">
+            <div class="feature-card card-glow p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mb-4">
+                <i class="fas fa-robot text-white text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-3">Lihat AI di Dunia Nyata</h3>
+              <p class="text-gray-300">Bagaimana AI menyelamatkan nyawa, memperbaiki lingkungan, dan memajukan pendidikan.</p>
+            </div>
+            <div class="feature-card card-glow p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mb-4">
+                <i class="fas fa-book text-white text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-3">Belajar AI dari Nol – Gratis!</h3>
+              <p class="text-gray-300">Modul interaktif untuk anak usia 8+ hingga dewasa. Tanpa biaya, tanpa syarat.</p>
+            </div>
+            <div class="feature-card card-glow p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mb-4">
+                <i class="fas fa-globe text-white text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-3">Dari Tiongkok ke Indonesia</h3>
+              <p class="text-gray-300">Pelajaran dari negara maju, solusi untuk negara berkembang.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-black/30 py-16">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center text-white mb-12 section-title">Fakta Penting Tentang AI & Kemanusiaan</h2>
+          <div class="stats-grid">
+            <div class="stat-card p-6 rounded-xl text-center">
+              <div class="stat-number">97%</div>
+              <div class="stat-label">Akurasi AI dalam mendiagnosis tumor paru-paru di Tiongkok</div>
+            </div>
+            <div class="stat-card p-6 rounded-xl text-center">
+              <div class="stat-number">77.9%</div>
+              <div class="stat-label">Penduduk Indonesia yang menggunakan internet (APJII 2023)</div>
+            </div>
+            <div class="stat-card p-6 rounded-xl text-center">
+              <div class="stat-number">68%</div>
+              <div class="stat-label">Pekerja yang takut kehilangan pekerjaan karena AI (Microsoft x IDC 2022)</div>
+            </div>
+            <div class="stat-card p-6 rounded-xl text-center">
+              <div class="stat-number">7</div>
+              <div class="stat-label">Tujuan Pembangunan Berkelanjutan yang bisa dicapai dengan AI (UNESCO 2024)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gradient-to-r from-purple-600 to-indigo-600 py-16 text-white">
+        <div class="container mx-auto px-4 text-center">
+          <h2 class="text-3xl font-bold mb-4 section-title">Bersama, Kita Siapkan Indonesia untuk Masa Depan!</h2>
+          <p class="text-xl mb-8">Kemajuan bukan milik segelintir orang. Ini hak setiap anak di bumi.</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button id="btn-contribute" class="bg-white text-purple-600 hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg transition-colors duration-300 glow-button">
+              Bergabung & Berkontribusi
+            </button>
+            <button id="btn-contact" class="border-2 border-white hover:bg-white hover:text-purple-600 font-semibold py-3 px-6 rounded-lg transition-colors duration-300 glow-button">
+              Hubungi Kami
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="chat-bot" class="fixed bottom-4 right-4 w-96 bg-black/70 backdrop-blur-md rounded-xl shadow-xl border border-purple-600 z-50 chat-container">
+    <div class="chat-header flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <i class="fas fa-robot text-white"></i>
+        <h3 class="font-semibold text-white">AI Assistant</h3>
+      </div>
+      <button id="close-chat" class="text-white hover:text-gray-200">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div id="messages-container" class="chat-messages h-96 overflow-y-auto p-4 space-y-4"></div>
+    <div class="chat-form flex gap-2">
+      <input
+        type="text"
+        id="input-message"
+        placeholder="Ketik pesan Anda..."
+        class="flex-1 px-3 py-2 border border-purple-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 chat-input"
+      />
+      <button type="submit" class="chat-send-btn">
+        <i class="fas fa-paper-plane text-white"></i>
+      </button>
+    </div>
+  </div>
+  <script>
+    let activePage = 'home';
+    let isMenuOpen = false;
+    let messages = [
+      { id: 1, text: "Halo! Saya AI Assistant yang siap membantu Anda memahami bagaimana kecerdasan buatan bisa menyelesaikan masalah manusia. Apa yang ingin Anda ketahui hari ini?", sender: 'ai', timestamp: new Date() }
+    ];
+    let isTyping = false;
+    function initParticles() {
+      const container = document.getElementById('particles');
+      if (!container) return;
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        const size = Math.random() * 3 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        particle.style.left = `${x}%`;
+        particle.style.top = `${y}%`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        container.appendChild(particle);
+      }
+    }
+    const contentEl = document.getElementById('content');
+    const mobileMenuEl = document.getElementById('mobile-menu');
+    const menuToggleBtn = document.getElementById('menu-toggle');
+    const closeChatBtn = document.getElementById('close-chat');
+    const messagesContainer = document.getElementById('messages-container');
+    const inputMessage = document.getElementById('input-message');
+    document.querySelectorAll('[id^="nav-"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const page = btn.id.replace('nav-', '');
+        setActivePage(page);
+      });
+    });
+    document.querySelectorAll('.nav-mobile').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const page = btn.getAttribute('data-page');
+        setActivePage(page);
+        mobileMenuEl.classList.add('hidden');
+        isMenuOpen = false;
+      });
+    });
+    menuToggleBtn.addEventListener('click', () => {
+      isMenuOpen = !isMenuOpen;
+      mobileMenuEl.classList.toggle('hidden');
+    });
+    document.getElementById('btn-learn')?.addEventListener('click', () => setActivePage('learn'));
+    document.getElementById('btn-cases')?.addEventListener('click', () => setActivePage('cases'));
+    document.getElementById('btn-contribute')?.addEventListener('click', () => setActivePage('contribute'));
+    document.getElementById('btn-contact')?.addEventListener('click', () => setActivePage('contact'));
+    closeChatBtn.addEventListener('click', () => {
+      document.getElementById('chat-bot').classList.add('hidden');
+    });
+    document.querySelector('.chat-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = inputMessage.value.trim();
+      if (!text) return;
+      const userMsg = { id: Date.now(), text, sender: 'user', timestamp: new Date() };
+      messages.push(userMsg);
+      renderMessages();
+      inputMessage.value = '';
+      isTyping = true;
+      renderMessages();
+    setTimeout(async () => {
+        
+      const response = await fetch('http://localhost:3000/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text })
+    });
+          const data = await response.json();
+// ... tampilkan data.reply
+        const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+        const aiMsg = { id: Date.now() + 1, text: randomResponse, sender: 'ai', timestamp: new Date() };
+        messages.push(aiMsg);
+        isTyping = false;
+        renderMessages();
+      }, 1500);
+    });
+    function setActivePage(page) {
+      activePage = page;
+      renderPage();
+    }
+    function renderPage() {
+      const pages = ['home', 'problems', 'comparison', 'learn', 'research', 'cases', 'contribute', 'contact', 'resources'];
+      pages.forEach(p => {
+        const el = document.getElementById(`page-${p}`);
+        if (el) el.style.display = 'none';
+      });
+      if (activePage === 'home') {
+        document.getElementById('page-home').style.display = 'block';
+        return;
+      }
+      if (!document.getElementById(`page-${activePage}`)) {
+        const html = getPageHTML(activePage);
+        if (html) {
+          const div = document.createElement('div');
+          div.innerHTML = html;
+          contentEl.appendChild(div.firstElementChild);
+        }
+      }
+      const target = document.getElementById(`page-${activePage}`);
+      if (target) target.style.display = 'block';
+    }
+    function renderMessages() {
+      messagesContainer.innerHTML = '';
+      messages.forEach(msg => {
+        const bubble = document.createElement('div');
+        bubble.className = `flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`;
+        bubble.innerHTML = `
+          <div class="max-w-[80%] p-3 rounded-lg ${msg.sender === 'user' ? 'chat-bubble-user' : 'chat-bubble-ai'}">
+            <p class="text-sm">${msg.text}</p>
+            <p class="text-xs mt-1 opacity-70">${new Date(msg.timestamp).toLocaleTimeString()}</p>
+          </div>
+        `;
+        messagesContainer.appendChild(bubble);
+      });
+      if (isTyping) {
+        const typing = document.createElement('div');
+        typing.className = 'flex justify-start';
+        typing.innerHTML = `
+          <div class="bg-gray-800 text-white p-3 rounded-lg">
+            <div class="typing-indicator">
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+            </div>
+          </div>
+        `;
+        messagesContainer.appendChild(typing);
+      }
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+    function getPageHTML(page) {
+      const templates = {
+        problems: `
+          <div id="page-problems" class="min-h-screen gradient-bg">
+            <div class="container mx-auto px-4 py-16">
+              <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl font-bold text-white mb-6 section-title neon-text">AI Bukan Hanya Teknologi—Tapi Solusi untuk Kemanusiaan</h1>
+                <p class="text-xl text-purple-200 mb-8">
+                  AI sering digambarkan sebagai ancaman. Tapi di tangan yang tepat, AI adalah <span class="font-semibold highlight">alat luar biasa untuk memperbaiki kehidupan</span>.
+                </p>
+                <div class="space-y-12">
+                  <div class="feature-card card-glow p-6 rounded-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                      <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-home text-white"></i>
+                      </div>
+                      <h2 class="text-2xl font-semibold text-white">Di Bidang Lingkungan</h2>
+                    </div>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300">
+                      <li>Di Brasil, AI memantau hutan Amazon dan mengirim peringatan dini jika ada pembalakan liar.</li>
+                      <li>Di Indonesia, startup lokal menggunakan AI untuk memprediksi banjir berdasarkan data cuaca & topografi.</li>
+                    </ul>
+                  </div>
+                  <div class="feature-card card-glow p-6 rounded-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                      <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-heartbeat text-white"></i>
+                      </div>
+                      <h2 class="text-2xl font-semibold text-white">Di Bidang Kesehatan</h2>
+                    </div>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300">
+                      <li>Di Tiongkok, AI mendiagnosis tumor paru-paru dengan akurasi <span class="font-semibold highlight">97%</span>—lebih cepat dan murah daripada dokter.</li>
+                      <li>Di India, chatbot AI memberikan konsultasi kesehatan dasar ke desa yang tidak punya puskesmas.</li>
+                    </ul>
+                  </div>
+                  <div class="feature-card card-glow p-6 rounded-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                      <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-white"></i>
+                      </div>
+                      <h2 class="text-2xl font-semibold text-white">Di Bidang Pendidikan</h2>
+                    </div>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300">
+                      <li>Anak-anak di Finlandia belajar matematika lewat asisten AI yang menyesuaikan gaya belajar mereka.</li>
+                      <li>Di Kenya, AI menerjemahkan pelajaran ke 50+ bahasa daerah agar semua anak bisa belajar.</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="feature-card card-glow p-6 rounded-xl mt-12">
+                  <div class="flex items-start gap-3">
+                    <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center mt-1">
+                      <i class="fas fa-star text-white"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-xl font-semibold text-white mb-2">Fakta UNESCO (2024)</h3>
+                      <p class="text-gray-300">
+                        AI bisa membantu mencapai <span class="font-semibold highlight">7 dari 17 Tujuan Pembangunan Berkelanjutan (SDGs)</span>—dari pengentasan kemiskinan hingga kesetaraan gender.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-12 p-6 bg-black/50 rounded-xl">
+                  <h2 class="text-2xl font-semibold text-white mb-4">Penutup</h2>
+                  <p class="text-lg text-gray-300">
+                    AI bukanlah akhir dari kemanusiaan—tapi awal dari <span class="font-semibold highlight">kemanusiaan yang lebih cerdas, adil, dan inklusif</span>.
+                  </p>
+                </div>
+                <div class="mt-12 flex justify-center">
+                  <button class="btn-primary glow-button py-3 px-6 rounded-lg transition-colors duration-300 flex items-center gap-2 hover-glow">
+                    <i class="fas fa-home icon-glow"></i> Kembali ke Halaman Utama
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `,
+        comparison: `
+          <div id="page-comparison" class="min-h-screen gradient-bg">
+            <div class="container mx-auto px-4 py-16">
+              <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl font-bold text-white mb-6 section-title neon-text">Mengapa Tiongkok Maju, Indonesia Tertinggal?</h1>
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                  <div class="feature-card card-glow p-6 rounded-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                      <div class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-flag text-white"></i>
+                      </div>
+                      <h2 class="text-2xl font-semibold text-white">Tiongkok: Strategi Nasional yang Holistik</h2>
+                    </div>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300 mb-4">
+                      <li><span class="font-semibold highlight">Sejak 2017</span>, AI masuk rencana pembangunan nasional.</li>
+                      <li><span class="font-semibold highlight">Anak SD belajar coding</span> lewat platform interaktif—dibiayai negara.</li>
+                      <li>Kota seperti <span class="font-semibold highlight">Shenzhen</span> dan <span class="font-semibold highlight">Hangzhou</span> jadi laboratorium hidup AI:
+                        <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                          <li>Robot pengantar makanan.</li>
+                          <li>AI di rumah sakit untuk diagnosis.</li>
+                          <li>Transportasi umum tanpa sopir.</li>
+                        </ul>
+                      </li>
+                      <li><span class="font-semibold highlight">Kebijakan sosial</span>: Perusahaan pengguna robot wajib kontribusi ke <span class="font-semibold highlight">Dana Transisi Sosial</span> untuk pekerja yang terdampak otomatisasi.
+                        <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                          <li>Pekerja dapat bantuan tunai + pelatihan ulang.</li>
+                          <li>89% berhasil beralih profesi dalam 10 bulan (Studi Shenzhen, 2024).</li>
+                        </ul>
+                      </li>
+                    </ul>
+                    <blockquote class="italic text-gray-300 border-l-4 border-purple-400 pl-4 mt-4">
+                      "Kami tidak takut pada robot. Kami takut jika manusia tidak siap menghadapinya." — Pejabat Kebijakan Digital, Kota Shenzhen
+                    </blockquote>
+                  </div>
+                  <div class="feature-card card-glow p-6 rounded-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                      <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-chart-line text-white"></i>
+                      </div>
+                      <h2 class="text-2xl font-semibold text-white">Indonesia: Potensi Besar, Tapi Minim Aksi</h2>
+                    </div>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300">
+                      <li><span class="font-semibold highlight">Belum ada kurikulum nasional</span> untuk AI, coding, atau robotika.</li>
+                      <li>Hanya <span class="font-semibold highlight">15% sekolah menengah</span> punya laboratorium komputer layak (Kemendikbud, 2023).</li>
+                      <li><span class="font-semibold highlight">Tidak ada kebijakan</span> tentang perlindungan pekerja dari otomatisasi.</li>
+                      <li>Mayoritas guru <span class="font-semibold highlight">tidak pernah dilatih</span> mengajar teknologi digital.</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="feature-card card-glow p-6 rounded-xl mb-12">
+                  <h2 class="text-xl font-semibold text-white mb-4">Pertanyaan Reflektif</h2>
+                  <p class="text-lg text-gray-300">
+                    Jika Tiongkok sudah memikirkan <span class="font-semibold highlight">bagaimana melindungi pekerjanya dari robot</span>,<br/>
+                    apakah Indonesia masih berdebat apakah <span class="font-semibold highlight">coding perlu diajarkan atau tidak?</span>Di Tiongkok, otomatisasi disertai tanggung jawab sosial: perusahaan yang pakai robot wajib kontribusi ke dana pelatihan, pekerja dapat bantuan transisi, dan anak-anak belajar AI sejak SD. Ini bukan soal teknologi semata, tapi kemanusiaan dalam kemajuan.
+Sementara itu, di Indonesia, akses ke pendidikan digital masih timpang, kurikulum nasional belum memasukkan coding secara wajib, dan wacana publik masih mempertanyakan relevansinya—padahal coding bukan soal jadi programmer, tapi melatih cara berpikir logis, kreatif, dan adaptif.
+Kita tidak kalah cerdas. Tapi kita kalah cepat dalam mengambil keputusan berani untuk masa depan anak-anak kita.  
+Sudah waktunya berhenti bertanya “perlukah?” dan mulai bertanya: “Bagaimana kita mulai—hari ini?”</span>
+                  </p>
+                </div>
+                <div class="flex justify-center">
+                  <button class="btn-primary glow-button py-3 px-6 rounded-lg transition-colors duration-300 flex items-center gap-2 hover-glow">
+                    <i class="fas fa-home icon-glow"></i> Kembali ke Halaman Utama
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `,
+        learn: `
+          <div id="page-learn" class="min-h-screen gradient-bg">
+            <div class="container mx-auto px-4 py-16">
+              <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl font-bold text-white mb-6 section-title neon-text">Belajar AI, Coding, dan Robotika – Gratis untuk Semua!</h1>
+                <p class="text-xl text-purple-200 mb-8">
+                  Kami percaya: <span class="font-semibold highlight">setiap anak Indonesia layak belajar teknologi masa depan—tanpa biaya, tanpa syarat, tanpa diskriminasi.</span>
+                </p>
+                <div class="table-container mb-12">
+                  <table class="w-full">
+                    <thead class="table-header">
+                      <tr>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-white">Level</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-white">Usia</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-white">Topik</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-white">Durasi</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-white">Tools Gratis</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-purple-600">
+                      <tr class="table-row hover:bg-purple-600/20">
+                        <td class="table-cell px-6 py-4 text-sm font-medium text-white">Level 0</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">8–12 th</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">Logika, Alur, Blok Coding</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">4 minggu</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">Scratch, Code.org</td>
+                      </tr>
+                      <tr class="table-row hover:bg-purple-600/20">
+                        <td class="table-cell px-6 py-4 text-sm font-medium text-white">Level 1</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">13+</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">Python Dasar, Web Sederhana</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">6 minggu</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">Replit, Trinket</td>
+                      </tr>
+                      <tr class="table-row hover:bg-purple-600/20">
+                        <td class="table-cell px-6 py-4 text-sm font-medium text-white">Level 2</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">15+</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">Robotika Virtual, IoT</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">8 minggu</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">Tinkercad, Micro:bit</td>
+                      </tr>
+                      <tr class="table-row hover:bg-purple-600/20">
+                        <td class="table-cell px-6 py-4 text-sm font-medium text-white">Level 3</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">16+</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">AI Sederhana (Gambar, Suara, Chatbot)</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">8 minggu</td>
+                        <td class="table-cell px-6 py-4 text-sm text-gray-300">Teachable Machine, Google Colab</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="feature-card card-glow p-6 rounded-xl mb-12">
+                  <h2 class="text-2xl font-semibold text-white mb-4">Fitur Setiap Modul</h2>
+                  <ul class="list-disc list-inside space-y-2 text-gray-300">
+                    <li>Video interaktif (5–10 menit)</li>
+                    <li>PDF panduan</li>
+                    <li>Proyek akhir seperti membuat game, detektor sampah, robot penyiram tanaman</li>
+                    <li>Kuis digital</li>
+                  </ul>
+                </div>
+                <div class="feature-card card-glow p-6 rounded-xl mb-12">
+                  <h2 class="text-2xl font-semibold text-white mb-4">Testimoni</h2>
+                  <blockquote class="quote">
+                    <p class="quote-text">"Dulu saya kira AI adalah inovasi yang dapat merusak generasi bangsa. Namun jika kita menggunakan AI dengan baik, itu akan membuat generasi yang lebih produktif"</p>
+                    <p class="quote-author">— Rani, 16 tahun, SMA Negeri 2, Kota Malang</p>
+                  </blockquote>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                  <a href="level0.html" class="btn-primary glow-button py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2 hover-glow no-underline text-white">
+                    <i class="fas fa-book icon-glow"></i> Mulai dari Level 0 – Gratis!
+                  </a>
+                  <a href="panduanguru.html" class="btn-secondary glow-button py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2 hover-glow no-underline text-white">
+                    <i class="fas fa-chart-bar icon-glow"></i> Panduan Lengkap untuk Guru
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        `,
+        research: `
+          <div id="page-research" class="min-h-screen gradient-bg">
+            <div class="container mx-auto px-4 py-16">
+              <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl font-bold text-white mb-6 section-title neon-text">Apakah Orang Indonesia Takut pada Teknologi?</h1>
+                <p class="text-xl text-purple-200 mb-8">
+                  <span class="font-semibold highlight">Tidak Ada yang "Menolak" Teknologi—Tapi Banyak yang "Ketakutan" karena Tidak Paham</span>
+                </p>
+                <div class="feature-card card-glow p-6 rounded-xl mb-12">
+                  <h2 class="text-2xl font-semibold text-white mb-4">Data Pendukung:</h2>
+                  <ul class="list-disc list-inside space-y-2 text-gray-300">
+                    <li><span class="font-semibold highlight">APJII (2023)</span>: 77,9% penduduk pakai internet, tapi <span class="font-semibold highlight">hanya 35%</span> yang punya literasi digital tingkat lanjut.</li>
+                    <li><span class="font-semibold highlight">Microsoft x IDC (2022)</span>: <span class="font-semibold highlight">68%</span> pekerja takut kehilangan pekerjaan karena AI.</li>
+                    <li><span class="font-semibold highlight">Litbang Kompas (2021)</span>: <span class="font-semibold highlight">42%</span> khawatir AI disalahgunakan di layanan publik.</li>
+                    <li><span class="font-semibold highlight">SMERU Institute (2023)</span>: <span class="font-semibold highlight">60%</span> guru di desa merasa tidak siap mengajar teknologi.</li>
+                  </ul>
+                </div>
+                <div class="feature-card card-glow p-6 rounded-xl mb-12">
+                  <h2 class="text-xl font-semibold text-white mb-4">Kesimpulan</h2>
+                  <p class="text-lg text-purple-200">
+                    <span class="font-semibold highlight">Sekitar 40–50% masyarakat Indonesia bersikap skeptis terhadap AI</span>—bukan karena anti-teknologi, tapi karena kurang edukasi dan akses.
+                  </p>
+                </div>
+                <div class="feature-card card-glow p-6 rounded-xl mb-12">
+                  <h2 class="text-xl font-semibold text-white mb-4">Solusi</h2>
+                  <ul class="list-disc list-inside space-y-2 text-gray-300">
+                    <li>Edukasi sejak dini.</li>
+                    <li>Akses merata ke pelatihan.</li>
+                    <li>Libatkan guru, orang tua, dan komunitas.</li>
+                  </ul>
+                  <blockquote class="quote">
+                    <p class="quote-text">"Ketakutan lahir dari ketidaktahuan. Pengetahuan lahir dari akses."</p>
+                  </blockquote>
+                </div>
+                <div class="flex justify-center">
+                  <button class="btn-primary glow-button py-3 px-6 rounded-lg transition-colors duration-300 flex items-center gap-2 hover-glow">
+                    <i class="fas fa-home icon-glow"></i> Kembali ke Halaman Utama
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `,
+        cases: `
+          <div id="page-cases" class="min-h-screen gradient-bg">
+            <div class="container mx-auto px-4 py-16">
+              <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl font-bold text-white mb-6 section-title neon-text">Shenzhen – Kota Cerdas yang Tidak Tinggalkan Manusia</h1>
+                <p class="text-xl text-purple-200 mb-8">
+                  Shenzhen, kota di Tiongkok selatan, telah menjadi model kota cerdas global yang sukses mengintegrasikan AI dalam kehidupan sehari-hari tanpa meninggalkan manusia.
+                </p>
+                <div class="feature-card card-glow p-6 rounded-xl mb-8">
+                  <h2 class="text-2xl font-semibold text-white mb-4">Profil Shenzhen</h2>
+                  <ul class="list-disc list-inside space-y-2 text-gray-300">
+                    <li>Populasi: 13 juta jiwa</li>
+                    <li>Area: 1.991 km²</li>
+                    <li>Peringkat: Salah satu kota paling inovatif di dunia (Global Innovation Index 2024)</li>
+                    <li>Ekonomi: Pusat teknologi dan manufaktur global</li>
+                  </ul>
+                </div>
+                <div class="space-y-8">
+                  <div class="feature-card card-glow p-6 rounded-xl">
+                    <h2 class="text-2xl font-semibold text-white mb-4">Inisiatif AI di Shenzhen</h2>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300">
+                      <li><span class="font-semibold highlight">Smart Transportation</span>: Sistem transportasi umum tanpa sopir, termasuk bus dan kereta bawah tanah yang dioperasikan oleh AI.</li>
+                      <li><span class="font-semibold highlight">Healthcare AI</span>: Di rumah sakit, AI membantu dokter mendiagnosis penyakit dengan akurasi tinggi, mengurangi waktu tunggu pasien.</li>
+                      <li><span class="font-semibold highlight">Education Integration</span>: Anak-anak SD belajar coding dan logika pemrograman melalui platform interaktif yang dibiayai negara.</li>
+                      <li><span class="font-semibold highlight">Environmental Monitoring</span>: Sensor dan AI memantau kualitas udara dan air secara real-time, serta memberikan peringatan dini untuk polusi.</li>
+                    </ul>
+                  </div>
+                  <div class="feature-card card-glow p-6 rounded-xl">
+                    <h2 class="text-2xl font-semibold text-white mb-4">Dana Transisi Sosial</h2>
+                    <p class="text-gray-300 mb-4">
+                      Salah satu inovasi paling revolusioner di Shenzhen adalah kebijakan sosial yang mengatasi dampak otomatisasi:
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300">
+                      <li>Perusahaan yang menggunakan robot wajib kontribusi ke <span class="font-semibold highlight">Dana Transisi Sosial</span>.</li>
+                      <li>Pekerja yang terdampak otomatisasi mendapatkan <span class="font-semibold highlight">bantuan tunai</span> dan <span class="font-semibold highlight">pelatihan ulang</span>.</li>
+                      <li>Hasilnya: <span class="font-semibold highlight">89% pekerja berhasil beralih profesi dalam 10 bulan</span> (Studi Shenzhen, 2024).</li>
+                    </ul>
+                  </div>
+                  <div class="feature-card card-glow p-6 rounded-xl">
+                    <h2 class="text-2xl font-semibold text-white mb-4">Pelajaran untuk Indonesia</h2>
+                    <p class="text-gray-300 mb-4">
+                      Shenzhen menunjukkan bahwa teknologi dan manusia bisa berjalan beriringan. Beberapa pelajaran penting:
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300">
+                      <li><span class="font-semibold highlight">Integrasi sistemik</span>: AI harus diintegrasikan dalam sistem pendidikan, kesehatan, dan transportasi.</li>
+                      <li><span class="font-semibold highlight">Kebijakan progresif</span>: Perlindungan pekerja harus menjadi bagian dari strategi digitalisasi.</li>
+                      <li><span class="font-semibold highlight">Investasi dalam manusia</span>: Teknologi akan gagal jika tidak diimbangi dengan peningkatan kapasitas manusia.</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="feature-card card-glow p-6 rounded-xl mt-8">
+                  <blockquote class="quote">
+                    <p class="quote-text">"Teknologi bukanlah tujuan, tapi alat untuk menciptakan kehidupan yang lebih baik bagi semua orang." — Pejabat Kebijakan Digital, Shenzhen</p>
+                  </blockquote>
+                </div>
+                <div class="mt-12 flex justify-center">
+                  <button class="btn-primary glow-button py-3 px-6 rounded-lg transition-colors duration-300 flex items-center gap-2 hover-glow">
+                    <i class="fas fa-home icon-glow"></i> Kembali ke Halaman Utama
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `,
+        contribute: `
+          <div id="page-contribute" class="min-h-screen gradient-bg">
+            <div class="container mx-auto px-4 py-16">
+              <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl font-bold text-white mb-6 section-title neon-text">Bersama, Kita Siapkan Indonesia untuk Masa Depan!</h1>
+                <p class="text-xl text-purple-200 mb-8">
+                  Kemajuan bukan milik segelintir orang. Ini hak setiap anak di bumi.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                  <div class="feature-card card-glow p-6 rounded-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                      <i class="fas fa-graduation-cap text-green-400 text-xl"></i>
+                      <h2 class="text-xl font-semibold text-white">Guru?</h2>
+                    </div>
+                    <p class="text-gray-300 mb-4">Ajarkan modul ini di kelas. Kami sediakan panduan lengkap.</p>
+                    <button class="text-green-400 hover:text-green-300 font-semibold underline nav-learn-btn">Lihat Modul Belajar →</button>
+                  </div>
+                  <div class="feature-card card-glow p-6 rounded-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                      <i class="fas fa-robot text-blue-400 text-xl"></i>
+                      <h2 class="text-xl font-semibold text-white">Developer?</h2>
+                    </div>
+                    <p class="text-gray-300 mb-4">Bantu perbaiki platform atau buat tools belajar baru.</p>
+                    <button class="text-blue-400 hover:text-blue-300 font-semibold underline nav-contact-btn">Hubungi Tim Developer →</button>
+                  </div>
+                  <div class="feature-card card-glow p-6 rounded-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                      <i class="fas fa-heart text-purple-400 text-xl"></i>
+                      <h2 class="text-xl font-semibold text-white">Orang Tua?</h2>
+                    </div>
+                    <p class="text-gray-300 mb-4">Dorong anak belajar AI—mulai dari Level 0!</p>
+                    <button class="text-purple-400 hover:text-purple-300 font-semibold underline nav-learn-btn">Mulai Belajar Bersama Anak →</button>
+                  </div>
+                  <div class="feature-card card-glow p-6 rounded-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                      <i class="fas fa-phone text-yellow-400 text-xl"></i>
+                      <h2 class="text-xl font-semibold text-white">Donatur?</h2>
+                    </div>
+                    <p class="text-gray-300 mb-4">Bantu biaya server, pelatihan guru, atau cetak modul untuk daerah 3T.</p>
+                    <button class="text-yellow-400 hover:text-yellow-300 font-semibold underline nav-contact-btn">Donasi Sekarang →</button>
+                  </div>
+                </div>
+                <div class="feature-card card-glow p-6 rounded-xl mb-12">
+                  <h2 class="text-2xl font-semibold text-white mb-4">Formulir Relawan</h2>
+                  <form class="space-y-4">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-300 mb-1">Nama Lengkap</label>
+                      <input type="text" class="form-input w-full px-3 py-2 rounded-md" placeholder="Masukkan nama Anda" />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                      <input type="email" class="form-input w-full px-3 py-2 rounded-md" placeholder="Masukkan email Anda" />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-300 mb-1">Nomor Telepon</label>
+                      <input type="tel" class="form-input w-full px-3 py-2 rounded-md" placeholder="Masukkan nomor telepon Anda" />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-300 mb-1">Cara Berkontribusi</label>
+                      <select class="form-input w-full px-3 py-2 rounded-md">
+                        <option value="">Pilih cara berkontribusi</option>
+                        <option value="guru">Guru</option>
+                        <option value="developer">Developer</option>
+                        <option value="orang-tua">Orang Tua</option>
+                        <option value="donatur">Donatur</option>
+                        <option value="relawan">Relawan</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-300 mb-1">Pesan</label>
+                      <textarea rows="4" class="form-input w-full px-3 py-2 rounded-md" placeholder="Tulis pesan Anda"></textarea>
+                    </div>
+                    <button type="submit" class="w-full btn-primary glow-button py-2 px-4 rounded-lg transition-colors duration-300">
+                      Daftar Jadi Relawan
+                    </button>
+                  </form>
+                </div>
+                <div class="flex justify-center">
+                  <button class="btn-primary glow-button py-3 px-6 rounded-lg transition-colors duration-300 flex items-center gap-2 hover-glow">
+                    <i class="fas fa-home icon-glow"></i> Kembali ke Halaman Utama
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `,
+        contact: `
+          <div id="page-contact" class="min-h-screen gradient-bg">
+            <div class="container mx-auto px-4 py-16">
+              <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl font-bold text-white mb-6 section-title neon-text">Hubungi Kami</h1>
+                <p class="text-xl text-purple-200 mb-8">
+                  Kami siap membantu Anda dengan pertanyaan, kolaborasi, atau ide baru.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                  <div class="feature-card card-glow p-6 rounded-xl">
+                    <h2 class="text-2xl font-semibold text-white mb-4">Informasi Kontak</h2>
+                    <div class="space-y-4">
+                      <div class="flex items-start gap-3">
+                        <i class="fas fa-envelope text-purple-400 mt-1"></i>
+                        <div>
+                          <p class="font-semibold text-white">Email</p>
+                          <p class="text-gray-300">queenabilqisazalia04@gmail.com</p>
+                        </div>
+                      </div>
+                      <div class="flex items-start gap-3">
+                        <i class="fas fa-phone text-purple-400 mt-1"></i>
+                        <div>
+                          <p class="font-semibold text-white">Telepon</p>
+                          <p class="text-gray-300">+62 89676851050</p>
+                        </div>
+                      </div>
+                      <div class="flex items-start gap-3">
+                        <i class="fas fa-map-marker-alt text-purple-400 mt-1"></i>
+                        <div>
+                          <p class="font-semibold text-white">Alamat</p>
+                          <p class="text-gray-300">Jl. Pisang Agung No 55, Kota Malang, Indonesia</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="feature-card card-glow p-6 rounded-xl">
+                    <h2 class="text-2xl font-semibold text-white mb-4">Media Sosial</h2>
+                    <div class="space-y-3">
+                      <div class="flex items-center gap-3">
+                        <i class="fab fa-instagram text-pink-400"></i>
+                        <a href="#" class="text-gray-300 hover:text-pink-300">Instagram: @hi_qqueena</a>
+                      </div>
+                      <div class="flex items-center gap-3">
+                        <i class="fab fa-youtube text-red-400"></i>
+                        <a href="#" class="text-gray-300 hover:text-red-300">YouTube: queena bilqis</a>
+                      </div>
+                      <div class="flex items-center gap-3">
+                        <i class="fab fa-tiktok text-white"></i>
+                        <a href="#" class="text-gray-300 hover:text-white">TikTok: @02zlie</a>
+                      </div>
+                    </div>
+                    <h2 class="text-xl font-semibold text-white mt-6 mb-3">Kolaborasi</h2>
+                    <p class="text-gray-300 mb-4">
+                      Ingin ajak kerja sama sekolah, kampus, NGO, atau perusahaan?
+                    </p>
+                    <a href="mailto:queenabilqisazalia04@gmail.com" class="text-blue-400 hover:text-blue-300 font-semibold underline">
+                      Kirim proposal ke: queenabilqisazalia04@gmail.com
+                    </a>
+                  </div>
+                </div>
+                <div class="feature-card card-glow p-6 rounded-xl">
+                  <h2 class="text-2xl font-semibold text-white mb-4">Formulir Kontak</h2>
+                  <form class="space-y-4">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-300 mb-1">Nama Lengkap</label>
+                      <input type="text" class="form-input w-full px-3 py-2 rounded-md" placeholder="Masukkan nama Anda" />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                      <input type="email" class="form-input w-full px-3 py-2 rounded-md" placeholder="Masukkan email Anda" />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-300 mb-1">Subjek</label>
+                      <input type="text" class="form-input w-full px-3 py-2 rounded-md" placeholder="Masukkan subjek pesan" />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-300 mb-1">Pesan</label>
+                      <textarea rows="6" class="form-input w-full px-3 py-2 rounded-md" placeholder="Tulis pesan Anda"></textarea>
+                    </div>
+                    <button type="submit" class="w-full btn-primary glow-button py-2 px-4 rounded-lg transition-colors duration-300">
+                      Kirim Pesan
+                    </button>
+                  </form>
+                </div>
+                <div class="mt-12 flex justify-center">
+                  <button class="btn-primary glow-button py-3 px-6 rounded-lg transition-colors duration-300 flex items-center gap-2 hover-glow">
+                    <i class="fas fa-home icon-glow"></i> Kembali ke Halaman Utama
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `,
+        resources: `
+          <div id="page-resources" class="min-h-screen gradient-bg">
+            <div class="container mx-auto px-4 py-16">
+              <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl font-bold text-white mb-6 section-title neon-text">Sumber Belajar Gratis</h1>
+                <p class="text-xl text-purple-200 mb-8">
+                  Kumpulan platform terbaik untuk belajar coding, AI, robotika, dan teknik — gratis dan dapat diakses siapa saja.
+                </p>
+                <!-- CODING -->
+                <section class="resource-card card-glow p-6 rounded-xl mb-8">
+                  <div class="flex items-center gap-3 mb-4">
+                    <i class="fas fa-code text-blue-400 text-xl"></i>
+                    <h2 class="text-2xl font-semibold text-white">1. Coding (Pemrograman)</h2>
+                  </div>
+                  <ul class="space-y-3">
+                    <li>
+                      <div class="font-semibold text-blue-300">Dicoding Indonesia</div>
+                      <a href="https://www.dicoding.com/" target="_blank" class="text-blue-400 hover:text-blue-300 underline">https://www.dicoding.com/</a>
+                      <p class="text-gray-300 mt-1">Kelas gratis seperti Python dan Pemrograman Web.</p>
+                    </li>
+                    <li>
+                      <div class="font-semibold text-blue-300">Petani Kode</div>
+                      <a href="https://www.petanikode.com/" target="_blank" class="text-blue-400 hover:text-blue-300 underline">https://www.petanikode.com/</a>
+                      <p class="text-gray-300 mt-1">Tutorial Python, JavaScript, Arduino, Git, dan lainnya.</p>
+                    </li>
+                    <li>
+                      <div class="font-semibold text-blue-300">W3Schools</div>
+                      <a href="https://www.w3schools.com/" target="_blank" class="text-blue-400 hover:text-blue-300 underline">https://www.w3schools.com/</a>
+                      <p class="text-gray-300 mt-1">Modul interaktif HTML, CSS, JS, Python, SQL (Bahasa Inggris).</p>
+                    </li>
+                  </ul>
+                </section>
+                <!-- AI -->
+                <section class="resource-card card-glow p-6 rounded-xl mb-8">
+                  <div class="flex items-center gap-3 mb-4">
+                    <i class="fas fa-brain text-purple-400 text-xl"></i>
+                    <h2 class="text-2xl font-semibold text-white">2. Kecerdasan Buatan (AI)</h2>
+                  </div>
+                  <ul class="space-y-3">
+                    <li>
+                      <div class="font-semibold text-purple-300">Google Bangkit Academy</div>
+                      <a href="https://grow.google/intl/id_id/bangkit/" target="_blank" class="text-purple-400 hover:text-purple-300 underline">https://grow.google/intl/id_id/bangkit/</a>
+                      <p class="text-gray-300 mt-1">Fokus pada Machine Learning dan Cloud Computing.</p>
+                    </li>
+                    <li>
+                      <div class="font-semibold text-purple-300">Kaggle Learn</div>
+                      <a href="https://www.kaggle.com/learn" target="_blank" class="text-purple-400 hover:text-purple-300 underline">https://www.kaggle.com/learn</a>
+                      <p class="text-gray-300 mt-1">Modul singkat AI, Data Science, dan Machine Learning.</p>
+                    </li>
+                    <li>
+                      <div class="font-semibold text-purple-300">Fast.ai</div>
+                      <a href="https://course.fast.ai/" target="_blank" class="text-purple-400 hover:text-purple-300 underline">https://course.fast.ai/</a>
+                      <p class="text-gray-300 mt-1">Kursus AI gratis untuk pemula hingga menengah.</p>
+                    </li>
+                  </ul>
+                </section>
+                <!-- ROBOTIK -->
+                <section class="resource-card card-glow p-6 rounded-xl mb-8">
+                  <div class="flex items-center gap-3 mb-4">
+                    <i class="fas fa-microchip text-green-400 text-xl"></i>
+                    <h2 class="text-2xl font-semibold text-white">3. Robotika & IoT</h2>
+                  </div>
+                  <ul class="space-y-3">
+                    <li>
+                      <div class="font-semibold text-green-300">Arduino Project Hub</div>
+                      <a href="https://projecthub.arduino.cc/" target="_blank" class="text-green-400 hover:text-green-300 underline">https://projecthub.arduino.cc/</a>
+                      <p class="text-gray-300 mt-1">Ratusan proyek robotika berbasis Arduino.</p>
+                    </li>
+                    <li>
+                      <div class="font-semibold text-green-300">Indobot Academy</div>
+                      <a href="https://indobot.co.id/academy" target="_blank" class="text-green-400 hover:text-green-300 underline">https://indobot.co.id/academy</a>
+                      <p class="text-gray-300 mt-1">Fokus ke robotika, IoT, dan mikrokontroler.</p>
+                    </li>
+                    <li>
+                      <div class="font-semibold text-green-300">MIT OpenCourseWare - EECS</div>
+                      <a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/" target="_blank" class="text-green-400 hover:text-green-300 underline">https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/</a>
+                      <p class="text-gray-300 mt-1">Modul robotik tingkat universitas.</p>
+                    </li>
+                  </ul>
+                </section>
+                <!-- ENGINEERING -->
+                <section class="resource-card card-glow p-6 rounded-xl mb-8">
+                  <div class="flex items-center gap-3 mb-4">
+                    <i class="fas fa-bolt text-yellow-400 text-xl"></i>
+                    <h2 class="text-2xl font-semibold text-white">4. Teknik & Rekayasa</h2>
+                  </div>
+                  <ul class="space-y-3">
+                    <li>
+                      <div class="font-semibold text-yellow-300">MIT OpenCourseWare</div>
+                      <a href="https://ocw.mit.edu/" target="_blank" class="text-yellow-400 hover:text-yellow-300 underline">https://ocw.mit.edu/</a>
+                      <p class="text-gray-300 mt-1">Ratusan modul teknik elektro, mekanik, komputer.</p>
+                    </li>
+                    <li>
+                      <div class="font-semibold text-yellow-300">Coursera (Free Audit)</div>
+                      <a href="https://www.coursera.org/" target="_blank" class="text-yellow-400 hover:text-yellow-300 underline">https://www.coursera.org/</a>
+                      <p class="text-gray-300 mt-1">Kursus teknik & AI gratis dengan opsi audit.</p>
+                    </li>
+                    <li>
+                      <div class="font-semibold text-yellow-300">edX</div>
+                      <a href="https://www.edx.org/" target="_blank" class="text-yellow-400 hover:text-yellow-300 underline">https://www.edx.org/</a>
+                      <p class="text-gray-300 mt-1">Kursus dari Harvard & MIT (materi gratis).</p>
+                    </li>
+                  </ul>
+                </section>
+                <!-- BONUS -->
+                <section class="resource-card card-glow p-6 rounded-xl mb-8">
+                  <div class="flex items-center gap-3 mb-4">
+                    <i class="fas fa-laptop text-indigo-400 text-xl"></i>
+                    <h2 class="text-2xl font-semibold text-white">5. Platform Eksperimen Langsung</h2>
+                  </div>
+                  <ul class="space-y-3">
+                    <li>
+                      <div class="font-semibold text-indigo-300">Replit</div>
+                      <a href="https://replit.com/" target="_blank" class="text-indigo-400 hover:text-indigo-300 underline">https://replit.com/</a>
+                      <p class="text-gray-300 mt-1">Coding langsung online.</p>
+                    </li>
+                    <li>
+                      <div class="font-semibold text-indigo-300">Tinkercad</div>
+                      <a href="https://www.tinkercad.com/" target="_blank" class="text-indigo-400 hover:text-indigo-300 underline">https://www.tinkercad.com/</a>
+                      <p class="text-gray-300 mt-1">Simulasi Arduino & elektronik.</p>
+                    </li>
+                    <li>
+                      <div class="font-semibold text-indigo-300">Google Colab</div>
+                      <a href="https://colab.research.google.com/" target="_blank" class="text-indigo-400 hover:text-indigo-300 underline">https://colab.research.google.com/</a>
+                      <p class="text-gray-300 mt-1">Latihan Machine Learning gratis dengan GPU.</p>
+                    </li>
+                  </ul>
+                </section>
+                <div class="mt-8 flex justify-center">
+                  <button class="btn-secondary glow-button py-3 px-6 rounded-lg transition-colors duration-300 flex items-center gap-2 hover-glow">
+                    <i class="fas fa-home icon-glow"></i> Kembali ke Beranda
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      };
+      return templates[page] || null;
+    }
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('nav-home-btn')) {
+        setActivePage('home');
+      } else if (e.target.classList.contains('nav-research-btn')) {
+        setActivePage('research');
+      } else if (e.target.classList.contains('nav-learn-btn')) {
+        setActivePage('learn');
+      } else if (e.target.classList.contains('nav-contact-btn')) {
+        setActivePage('contact');
+      }
+    });
+    renderMessages();
+    initParticles();
+  </script>
+</body>
+</html>
